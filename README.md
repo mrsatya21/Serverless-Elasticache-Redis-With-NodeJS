@@ -15,7 +15,7 @@ This template can be used to create an ElastiCache Redis (Serverless) cluster wi
 2. Use the template to [create the Stack](https://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/cfn-console-create-stack.html) through AWS Console.
 
 3. After creating the stack [connect to Ec2 instance](https://docs.aws.amazon.com/AWSEC2/latest/UserGuide/connect-linux-inst-ssh.html#connect-linux-inst-sshClient) and run the command -
-    ```sh 
+    ```node 
     node /home/ec2-user/redis.js
     ```
 
