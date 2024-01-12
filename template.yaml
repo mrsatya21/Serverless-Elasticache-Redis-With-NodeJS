@@ -1,0 +1,96 @@
+AWSTemplateFormatVersion: '2010-09-09'
+Description: 'Launch an EC2 instance with Amazon Linux 2023 AMI for Redis-Serverless'
+
+Parameters:
+  KeyName:
+    Description: Name of an existing EC2 KeyPair to enable SSH access to the instance
+    Type: AWS::EC2::KeyPair::KeyName
+    ConstraintDescription: Please Provide the name of an existing EC2 KeyPair.
+  
+  InstanceType:
+    Description: EC2 instance type For Redis
+    Type: String
+    Default: t3.micro
+    AllowedValues: ["t1.micro", "t2.2xlarge", "t2.large", "t2.medium", "t2.micro", "t2.nano", "t2.small", "t2.xlarge", "t3.2xlarge", "t3.large", "t3.medium", "t3.micro", "t3.nano", "t3.small", "t3.xlarge", "t3a.2xlarge", "t3a.large", "t3a.medium", "t3a.micro", "t3a.nano", "t3a.small", "t3a.xlarge", "t4g.2xlarge", "t4g.large", 
+    "t4g.medium", "t4g.micro", "t4g.nano", "t4g.small", "t4g.xlarge"]
+    ConstraintDescription: Please choose a valid instance type.
+  
+  SecurityGroupID:
+    Type: AWS::EC2::SecurityGroup::Id
+
+  LatestAmiId:
+    Type:  'AWS::SSM::Parameter::Value<AWS::EC2::Image::Id>'
+    Default: '/aws/service/ami-amazon-linux-latest/al2023-ami-kernel-6.1-x86_64'
+
+  SubnetId:
+    Type: List<AWS::EC2::Subnet::Id>
+
+Resources:
+  Ec2Instance:
+    Type: AWS::EC2::Instance
+    Properties:
+      InstanceType: !Ref 'InstanceType'
+      SecurityGroupIds: [!Ref 'SecurityGroupID']
+      KeyName: !Ref 'KeyName'
+      ImageId: !Ref 'LatestAmiId'
+      IamInstanceProfile: 'SSMInstanceProfile'
+      UserData: !Base64
+        'Fn::Sub': |
+          #!/bin/bash -xe
+          dnf install nodejs -y
+          cd /home/ec2-user
+          npm install ioredis
+          cat <<'EOT' >redis.js
+          #!/usr/bin/node
+          const Redis = require("ioredis");
+          const redisHost =
+          const redisPort = 6379;
+          const redis = new Redis({
+              host: redisHost,
+              port: redisPort,
+              tls: {},
+          });
+          redis.set('ping', 'dong', function (err, result) {
+              console.log('set ping dong: ', result);
+          });
+          redis.get('ping', function (err, result) {
+              console.log('get ping: ', result);
+          });
+          redis.set('ding', 'pong', function (err, result) {
+              console.log('set ding pong: ', result);
+          });
+          redis.get('ding', function (err, result) {
+              console.log('get ding: ', result);
+          });
+          redis.quit();
+          EOT
+          sed -i -r "s#^(const redisHost =).*#\1 '$(aws cloudformation describe-stacks --stack-name $(aws cloudformation describe-stacks --query 'Stacks[0].StackName' --output text) --query 'Stacks[].Outputs[?OutputKey== `ClusterEndpoint`].OutputValue' --output text)';#" /home/ec2-user/redis.js
+          chmod +x /home/ec2-user/redis.js
+      Tags:
+        - Key: 'Name'
+          Value: 'Ec2InstanceForRedisServerless'
+    DependsOn:
+      - 'RedisServerless'
+    
+  RedisServerless:
+    Type: AWS::ElastiCache::ServerlessCache
+    Properties:
+      Description: 'Creating a serverless redis cluster'
+      Engine: 'redis'
+      SecurityGroupIds: [!Ref 'SecurityGroupID']
+      ServerlessCacheName: 'RedisServerless'
+      SubnetIds: !Ref 'SubnetId'
+      Tags:
+        - Value: 'Name'
+          Key: 'RedisServerlessForNodeJS'
+
+Outputs:
+  InstanceId:
+    Description: Instance Id of the newly created EC2 instance
+    Value: !Ref 'Ec2Instance'
+
+  ClusterEndpoint:
+    Description: Cluster endpoint of the newly created Redis serverless cluster.
+    Value: !GetAtt RedisServerless.Endpoint.Address
+    Export:
+      Name: !Sub "RedisEndpoint"
