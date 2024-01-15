@@ -21,7 +21,7 @@ This template can be used to create an ElastiCache Redis (Serverless) cluster wi
     node /home/ec2-user/redis.js
     ```
 
-4. You will get output something like this - 
+5. You will get output something like this - 
     ```
     set ping dong:  OK
     get ping:  dong
