@@ -30,7 +30,7 @@ Resources:
     Type: AWS::EC2::Instance
     DependsOn:
       - 'RedisServerless' 
-      - 'SSMInstanceProfile'
+      - 'SSMInstanceProfiles'
     Properties:
       InstanceType: !Ref 'InstanceType'
       SecurityGroupIds: [!Ref 'SecurityGroupID']
@@ -84,10 +84,11 @@ Resources:
               Service: ec2.amazonaws.com
             Action: sts:AssumeRole
       Path: "/"
+      RoleName: 'SSMRole'
       ManagedPolicyArns: 
       - arn:aws:iam::aws:policy/AmazonSSMManagedInstanceCore
   
-  SSMInstanceProfile:
+  SSMInstanceProfiles:
     Type: AWS::IAM::InstanceProfile
     Properties: 
       InstanceProfileName: SSMInstanceProfiles
