@@ -89,12 +89,13 @@ Resources:
 
   SSMInstanceProfile:
     Type: AWS::IAM::InstanceProfile
-    DependsOn: 'SSMRole'
     Properties: 
       InstanceProfileName: SSMInstanceProfiles
       Roles:
         - !Ref SSMRole
       Path: "/"
+    DependsOn: 
+      - 'SSMRole'
     
   RedisServerless:
     Type: AWS::ElastiCache::ServerlessCache
