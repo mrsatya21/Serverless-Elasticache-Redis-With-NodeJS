@@ -92,7 +92,7 @@ Resources:
     Properties: 
       InstanceProfileName: SSMInstanceProfiles
       Roles:
-        - !Ref SSMRole
+        - !Ref 'SSMRole'
       Path: "/"
     DependsOn: 
       - 'SSMRole'
