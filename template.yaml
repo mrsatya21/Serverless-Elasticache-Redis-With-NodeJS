@@ -87,6 +87,23 @@ Resources:
       RoleName: 'SSMInstanceProfiles'
       ManagedPolicyArns: 
       - arn:aws:iam::aws:policy/AmazonSSMManagedInstanceCore
+
+  CFNPolicy:
+    Type: AWS::IAM::Policy
+    DependsOn: 
+      - 'SSMRole'
+    Properties: 
+      PolicyName: CFNPolicy
+      PolicyDocument:
+        Version: '2012-10-17'
+        Statement:
+          - Effect: Allow
+            Action: 
+              - cloudformation:DescribeStacks
+              - cloudformation:ListStacks
+            Resource: "*"
+      Roles:
+        - !Ref SSMRole
   
   SSMInstanceProfile:
     Type: AWS::IAM::InstanceProfile
