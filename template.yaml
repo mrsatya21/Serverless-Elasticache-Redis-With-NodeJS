@@ -70,8 +70,7 @@ Resources:
         - Key: 'Name'
           Value: 'Ec2InstanceForRedisServerless'
     DependsOn:
-      - 'RedisServerless'
-      - 'SSMInstanceProfile'
+      - 'RedisServerless', 'SSMInstanceProfile'
 
 
   SSMRole:
