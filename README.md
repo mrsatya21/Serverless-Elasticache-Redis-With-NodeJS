@@ -9,6 +9,10 @@ This is a Repository that contains YAML CloudFormation template to create an Ela
 
 - I assume user(s) to have a little bit of knowledge about CloudFormation. 
 
+- Select the *Security group* which is in default VPC. Otherwise, make sure your *Security group* is present in a VPC, which have at-least 3 subnet. 
+
+- *Security group*, must be allowing Inbound/Outbound traffic to port 6379 *(default redis port)*. 
+
 #### This is a CloudFormation YAML template. 
 
 This template can be used to create an ElastiCache Redis *(serverless)* cluster with an *Amazon Linux 2023* EC2 instance and connect to the Redis cluster with NodeJS.
