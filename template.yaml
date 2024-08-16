@@ -73,7 +73,6 @@ Resources:
         - Key: 'Name'
           Value: 'Ec2InstanceForRedisServerless'
 
-
   SSMRole:
     Type: AWS::IAM::Role
     Properties:
@@ -90,8 +89,7 @@ Resources:
 
   SSMInstanceProfile:
     Type: AWS::IAM::InstanceProfile
-    DependsOn:
-      - 'SSMRole'
+    DependsOn: 'SSMRole'
     Properties: 
       InstanceProfileName: SSMInstanceProfiles
       Roles:
