@@ -86,7 +86,6 @@ Resources:
     Path: "/"
     ManagedPolicyArns: 
       - arn:aws:iam::aws:policy/AmazonSSMManagedInstanceCore
-
   SSMInstanceProfile:
     Type: AWS::IAM::InstanceProfile
     Properties: 
@@ -94,8 +93,8 @@ Resources:
       Roles:
         - !Ref 'SSMRole'
       Path: "/"
-    DependsOn: 
-      - 'SSMRole'
+    # DependsOn: 
+    #   - 'SSMRole'
     
   RedisServerless:
     Type: AWS::ElastiCache::ServerlessCache
