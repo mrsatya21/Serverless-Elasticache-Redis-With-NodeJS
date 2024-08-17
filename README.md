@@ -21,7 +21,7 @@ This template can be used to create an ElastiCache Redis *(serverless)* cluster 
 
 1. Download the template to your local machine from the GitHub repository.
     > ```sh
-    > wget https://raw.githubusercontent.com/mrsatya21/Serverless-Elasticache-Redis-With-NodeJS/main/template.yaml
+    > wget https://raw.githubusercontent.com/sattyagrah/Serverless-Elasticache-Redis-With-NodeJS/main/template.yaml
     > ```
 
 2. Use the template to *[create the Stack](https://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/cfn-console-create-stack.html)* through AWS Console.
