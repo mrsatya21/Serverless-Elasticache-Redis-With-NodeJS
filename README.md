@@ -3,7 +3,7 @@ This is a Repository that contains YAML CloudFormation template to create an Ela
 
 ### Consideration/prerequisites  
 
-- If you already have **Instance Profile**, with required permission, please follow this **[template](https://github.com/mrsatya21/Serverless-Elasticache-Redis-With-NodeJS/blob/main/README.md)** 
+- If you already have **Instance Profile**, with required permission, please follow this **[template](https://github.com/sattyagrah/AWSServerlessRedisNodeJs/blob/main/README.md)** 
 
 - I assume user(s) to have a little bit of knowledge about CloudFormation. 
 
@@ -17,7 +17,7 @@ This template can be used to create an ElastiCache Redis *(serverless)* cluster 
 
 1. Download the template to your local machine from the GitHub repository.
     > ```sh
-    > wget https://raw.githubusercontent.com/sattyagrah/Serverless-Elasticache-Redis-With-NodeJS/WithInstanceProfile/template.yaml
+    > wget https://raw.githubusercontent.com/sattyagrah/AWSServerlessRedisNodeJs/WithInstanceProfile/template.yaml
     > ```
 
 2. Use the template to *[create the Stack](https://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/cfn-console-create-stack.html)* through AWS Console.
