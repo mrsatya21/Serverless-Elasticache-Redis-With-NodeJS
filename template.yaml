@@ -70,8 +70,6 @@ Resources:
           [ "$(awk -F"'" '/const redisHost/ {print $2}' /home/ec2-user/redis.js)" == "" ] && echo "'redisHost' is empty in '/home/ec2-user/redis.js'" || chmod +x /home/ec2-user/redis.js
           EOT
           chmod +x redis.sh
-          whoami
-          who am i
       Tags:
         - Key: 'Name'
           Value: 'Ec2InstanceForRedisServerless'
