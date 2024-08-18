@@ -30,7 +30,7 @@ This template can be used to create an ElastiCache Redis *(serverless)* cluster 
 
 4. After creating the stack *[connect to Ec2 instance `Ec2InstanceForRedisServerless`](https://docs.aws.amazon.com/AWSEC2/latest/UserGuide/connect-linux-inst-ssh.html#connect-linux-inst-sshClient)* and run the command -
     > ```sh 
-    > [ "$(awk -F"'" '/const redisHost/ {print $2}' /home/ec2-user/redis.js)" == "" ] && echo "'redisHost' is empty." || node /home/ec2-user/redis.js
+    > ./home/ec2-user/redis.js
     > ```
 
 5. You will get output something like this - 
