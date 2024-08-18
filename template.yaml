@@ -65,9 +65,10 @@ Resources:
           redis.quit();
           EOT
           sed -i -r "s#^(const redisHost =).*#\1 '$(aws cloudformation describe-stacks --stack-name $(aws cloudformation describe-stacks --query 'Stacks[0].StackName' --output text) --query 'Stacks[].Outputs[?OutputKey== `ClusterEndpoint`].OutputValue' --output text)';#" /home/ec2-user/redis.js
+          [ "$(awk -F"'" '/const redisHost/ {print $2}' /home/ec2-user/redis.js)" == "" ] && echo "'redisHost' is empty" || chmod +x /home/ec2-user/redis.js
           cat <<'EOT' >redis.sh
           #!/bin/bash
-          [ "$(awk -F"'" '/const redisHost/ {print $2}' /home/ec2-user/redis.js)" == "" ] && echo "'redisHost' is empty in '/home/ec2-user/redis.js'" || chmod +x /home/ec2-user/redis.js
+          [ "$(awk -F"'" '/const redisHost/ {print $2}' /home/ec2-user/redis.js)" == "" ] && echo "'redisHost' is empty in '/home/ec2-user/redis.js'" || node /home/ec2-user/redis.js
           EOT
           chmod +x redis.sh
       Tags:
