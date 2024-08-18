@@ -3,13 +3,13 @@ This is a Repository that contains YAML CloudFormation template to create an Ela
 
 ### Consideration/prerequisites 
 
-- I have used the *Instance profile*, that I have in my account. I request everyone to change the *Instance profile* in the given template *(in line number [36](https://github.com/mrsatya21/Serverless-Elasticache-Redis-With-NodeJS/blob/main/template.yaml#L36))*.
+- I have used the *Instance profile*, that I have in my account. I request everyone to change the *Instance profile* in the given template *(in line number [36](https://github.com/sattyagrah/AWSServerlessRedisNodeJs/blob/main/template.yaml#L36))*.
 
 - The *Instance profile*, that I have used was having *[AmazonSSMManagedInstanceCore](https://docs.aws.amazon.com/aws-managed-policy/latest/reference/AmazonSSMManagedInstanceCore.html)* policy attached to it, along with a custom policy that allows *DescribeStacks* and *ListStacks* policy. 
 
 - I assume user(s) to have a little bit of knowledge about CloudFormation. 
 
-- For LAZY people, use the template in branch **[WithInstanceProfile](https://github.com/mrsatya21/Serverless-Elasticache-Redis-With-NodeJS/blob/WithInstanceProfile/README.md)**.
+- For LAZY people, use the template in branch **[WithInstanceProfile](https://github.com/sattyagrah/AWSServerlessRedisNodeJs/blob/WithInstanceProfile/README.md)**.
 
 - Select the *Security group* which is in default VPC. Otherwise, make sure your *Security group* is present in a VPC, which have at-least 3 subnet. 
 
@@ -21,7 +21,7 @@ This template can be used to create an ElastiCache Redis *(serverless)* cluster 
 
 1. Download the template to your local machine from the GitHub repository.
     > ```sh
-    > wget https://raw.githubusercontent.com/sattyagrah/Serverless-Elasticache-Redis-With-NodeJS/main/template.yaml
+    > wget https://raw.githubusercontent.com/sattyagrah/AWSServerlessRedisNodeJs/main/template.yaml
     > ```
 
 2. Use the template to *[create the Stack](https://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/cfn-console-create-stack.html)* through AWS Console.
